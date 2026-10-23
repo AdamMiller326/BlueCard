@@ -4,7 +4,7 @@
 
 A free, fan-made Digimon roguelike deckbuilder. You raise two monsters in a nursery, then take them on runs where they fight with a shared deck and evolve as the run goes on. Retired monsters are recycled into DNA, which makes better eggs for future runs.
 
-It started as a Digital Monster X-style vpet and grew into a full video game. The vpet DNA is still there: care-driven evolution, poop and sickness, eggs, and lineages.
+It started as a Digital Monster X-style vpet and grew into a full video game. The vpet DNA is still there: care-driven evolution, poop, eggs, and lineages.
 
 ## Pillars
 
