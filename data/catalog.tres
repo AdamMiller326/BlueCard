@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CatalogDef" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://core/nursery/catalog_def.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://data/species/punimon.tres" id="2_punimon"]
+[ext_resource type="Resource" path="res://data/species/tsunomon.tres" id="3_tsunomon"]
+[ext_resource type="Resource" path="res://data/species/gabumon.tres" id="4_gabumon"]
+[ext_resource type="Resource" path="res://data/species/numemon.tres" id="5_numemon"]
+[ext_resource type="Resource" path="res://data/eggs/basic_egg.tres" id="6_basic_egg"]
+
+[resource]
+script = ExtResource("1_catalog")
+species = [ExtResource("2_punimon"), ExtResource("3_tsunomon"), ExtResource("4_gabumon"), ExtResource("5_numemon")]
+eggs = [ExtResource("6_basic_egg")]
+basic_egg = "basic_egg"

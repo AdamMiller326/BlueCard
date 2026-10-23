@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SpeciesDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/nursery/species_def.gd" id="1_species"]
+
+[resource]
+script = ExtResource("1_species")
+id = "numemon"
+display_name = "Numemon"
+stage = "rookie"
+attribute = "virus"
+stage_seconds = 0.0
+hunger_interval = 0.0
+poop_per_gap = 0
+jumbo_per_gap = false
+strength_every = 0
+base_weight = 10
+evolutions = []
+card_pool = PackedStringArray("numemon_strike", "numemon_guard", "poop_toss")
+color = Color(0.45, 0.75, 0.35, 1)

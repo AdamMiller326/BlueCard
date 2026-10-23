@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EggDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/nursery/egg_def.gd" id="1_egg"]
+
+[resource]
+script = ExtResource("1_egg")
+id = "basic_egg"
+display_name = "Basic Egg"
+baby_species = "punimon"
+hatch_seconds = 60.0
+inherit_budget = 0
+color = Color(0.92, 0.9, 0.8, 1)

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SpeciesDef" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/nursery/species_def.gd" id="1_species"]
+
+[resource]
+script = ExtResource("1_species")
+id = "punimon"
+display_name = "Punimon"
+stage = "baby"
+attribute = "free"
+stage_seconds = 600.0
+hunger_interval = 300.0
+poop_per_gap = 2
+jumbo_per_gap = false
+strength_every = 0
+base_weight = 5
+evolutions = [{"to": "tsunomon", "reqs": {}}]
+card_pool = PackedStringArray()
+color = Color(0.95, 0.45, 0.6, 1)
