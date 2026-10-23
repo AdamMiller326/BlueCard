@@ -48,14 +48,15 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 **Hunger**
 
-- Hearts drain toward a **fixed schedule** of hunger windows, about every 2.5 min played (~4 per raise) (tune).
-- When hearts hit empty, a **grace window** opens (~2 min played) (tune). Feeding in the grace window is fine. If it closes unfed, that's a **care mistake**.
+- Hearts drain on a **fixed schedule**. Each species sets its own hunger interval in its data, e.g. ~2.5 min played (~4 per raise) (tune).
+- When hearts hit empty, the mon **calls** (the usual vpet alert) and a **call timer** starts (~2 min played) (tune). Feeding before it runs out is fine. If it runs out unfed, that's a **care mistake**.
+- The UI presents this as a vpet call: alert when hungry, call timer. No "window" wording for the player.
 - Feeding doesn't shift the schedule. Hearts are a view of the schedule, so the UI can show "hungry in 1:20".
 - Overfeeding adds weight. Weight has no effect in the nursery; it carries over on the Rookie (reaching 100 matters later, as on the DMX/Pendulum).
 
 **Strength**
 
-- **One strength check per raise**, on the middle hunger window (tune).
+- **One strength check per raise**, on the middle hunger call (tune).
 - Filled by **training** (a short minigame; a button press is fine for the prototype) or **protein** (instant, adds weight).
 - Unfilled at the check = care mistake.
 - Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get and its quality.
@@ -66,7 +67,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 **Poop**
 
-- Each egg group has a fixed **poop count per gap** between hunger windows (2–4), spread evenly. One jumbo per gap at most (tune).
+- Each egg group has a fixed **poop count per gap** between hunger calls (2–4), spread evenly. One jumbo per gap at most (tune).
 - Poop is removed with the **Clean** menu action.
 - **8 poop points = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
 - Designed so you can't hit the cap if you clean once per gap.
@@ -75,7 +76,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 ### Battle grace rule
 
-Care is done **between** run nodes, never during a fight. If a grace window would close during a battle, it's extended until a few seconds after the battle ends, so the player is never punished for being in a fight. The nursery still ages normally during fights.
+Care is done **between** run nodes, never during a fight. If a call timer would run out during a battle, it's extended until a few seconds after the battle ends, so the player is never punished for being in a fight. The nursery still ages normally during fights.
 
 ### Care mistakes and outcomes
 
@@ -118,7 +119,7 @@ res://
       nursery_state.gd      # the slot, the roster, unlocked egg groups; serializable to/from Dictionary
       slot_state.gd         # one mon: stage, age, hearts schedule, poop, mistakes, effort
       nursery_logic.gd      # advance(state, played_seconds) -> events; actions: start_egg, feed, protein, train, clean
-      care_schedule.gd      # computes hunger windows, strength check, poop times for a raise
+      care_schedule.gd      # computes hunger calls, strength check, poop times for a raise
       evolution.gd          # evaluates requirement dicts against counters (shared with runs later)
       unlocks.gd            # evaluates egg group unlock conditions (same requirement vocabulary)
       rookie.gd             # roster entry handed to runs
@@ -174,7 +175,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 
 - Time scale ×1 / ×10 / ×60
 - Unlock egg group, force next stage, add Rookie to roster
-- Overlay showing upcoming hunger windows, poop times, deadlines and mistake count
+- Overlay showing upcoming hunger calls, poop times, deadlines and mistake count
 - Hide debug UI in release builds
 
 ## Prototype content
