@@ -84,10 +84,10 @@ Care is done **between** run nodes, never during a fight. If a call timer would 
 - Care mistakes are shown as **condition hearts**, the way the Pendulum Color shows them. The number of hearts is per species (Nyaromon has 2).
 - **No death.** Mistakes only change which Rookie you get and its quality. Bad care still gives a Rookie, just a worse one (e.g. Numemon).
 - **Evolution:** when In-Training ends, its evolution list is checked in order. The first branch whose requirements are met wins.
-  - Requirements are data, from a fixed vocabulary.
+  - Requirements are data, from a fixed vocabulary that matches Humulos: `conditionHearts` (hearts left: the species' condition hearts minus care mistakes, floor 0) and `effort` (effort hearts, 0–4). `careMistakes` stays as the internal counter the hearts come from.
   - Example for a group with three outcomes:
-    - `{"careMistakes": "<=0", "effort": ">=2"}` → Rookie A
-    - `{"careMistakes": "<=1"}` → Rookie B
+    - `{"conditionHearts": ">=2", "effort": ">=2"}` → Rookie A
+    - `{"conditionHearts": ">=1"}` → Rookie B
     - `{}` → Rookie C (fallback)
 
 ### Rookie output
@@ -184,7 +184,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - **Greybox with the Pendulum Virus Busters roster**, placeholder art (colored shapes).
 - Egg group: **Nyaromon** (In-Training). Its Rookies are Agumon, Gabumon, Plotmon and Gammamon.
 - **First slice uses two Rookies: Agumon and Gabumon.** Plotmon and Gammamon come later.
-- Nyaromon's evolutions: `{"careMistakes": "<=1"}` → **Agumon**; `{}` → **Gabumon** (fallback).
+- Nyaromon (2 condition hearts): `{"conditionHearts": ">=1"}` → **Agumon**; `{}` → **Gabumon** (fallback). When Plotmon is added: Gabumon `{"conditionHearts": "0", "effort": ">=1"}`, Plotmon `{}`.
 - Champions for the slice (runs, later): Greymon, Leomon and Garurumon.
 - A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
 
