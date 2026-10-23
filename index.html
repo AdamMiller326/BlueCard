@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#18203f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="icon" href="./icons/icon-192.png" />
+    <title>Digital Monster V Pet</title>
+  </head>
+  <body>
+    <main id="app">
+      <div id="device">
+        <canvas id="screen" width="160" height="144"></canvas>
+        <div id="buttons">
+          <button data-act="feed">Feed</button>
+          <button data-act="protein">Protein</button>
+          <button data-act="train">Train</button>
+          <button data-act="clean">Clean</button>
+          <button data-act="lights">Lights</button>
+          <button data-act="medicine">Medicine</button>
+          <button data-act="vaccine">Vaccine</button>
+          <button data-act="hatch" id="hatch">Hatch</button>
+        </div>
+        <p id="toast" role="status"></p>
+      </div>
+
+      <section id="dormant" hidden>
+        <p>This mon was transferred to another device. Import a save code to play here again.</p>
+      </section>
+
+      <details id="info" open>
+        <summary>Status</summary>
+        <dl id="stats"></dl>
+        <ol id="schedule"></ol>
+      </details>
+
+      <details id="settings">
+        <summary>Settings &amp; saves</summary>
+        <label>Day start <input id="day-start" type="time" step="60" /></label>
+        <div class="row">
+          <button id="export">Export save code (transfer)</button>
+          <button id="download">Download as file</button>
+        </div>
+        <textarea id="code" rows="4" placeholder="Paste a save code here" spellcheck="false"></textarea>
+        <div class="row">
+          <button id="import">Import code</button>
+          <label class="file">Import file <input id="import-file" type="file" accept=".txt,text/plain" /></label>
+        </div>
+      </details>
+
+      <details id="debug">
+        <summary>Debug</summary>
+        <p id="debug-clock"></p>
+        <div class="row" id="speeds">
+          <button data-speed="1">1×</button>
+          <button data-speed="60">60×</button>
+          <button data-speed="600">600×</button>
+          <button data-speed="3600">3600×</button>
+        </div>
+        <div class="row">
+          <button data-skip="600000">+10m</button>
+          <button data-skip="3600000">+1h</button>
+          <button data-skip="21600000">+6h</button>
+          <button id="skip-next">Next event</button>
+          <button id="real-time">Real time</button>
+        </div>
+        <div class="row">
+          <label>Level <input id="level" type="number" min="1" max="10" value="1" /></label>
+          <button id="set-level">Set</button>
+          <button id="add-bits">+100 bits</button>
+          <button id="wipe">Wipe save</button>
+        </div>
+        <ol id="log"></ol>
+      </details>
+
+      <p id="pack-error" hidden></p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
