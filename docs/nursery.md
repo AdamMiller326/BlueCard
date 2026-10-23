@@ -4,7 +4,7 @@
 
 ## Purpose
 
-The nursery raises Rookies through short, played-time care, **one mon at a time**: egg → In-Training → Rookie in about 11 minutes of played time. Care decides **which Rookie** you get and **how strong it starts** a run. Finished Rookies go to your **Rookie roster**, so you build up an army of Rookies while you play runs, then pick two from the roster for each run.
+The nursery raises Rookies through short, played-time care, **one mon at a time**: egg → In-Training → Rookie in about 11 minutes of played time. Care decides **which Rookie** you get; training decides its **starting stats**. Finished Rookies go to your **Rookie roster**, so you build up an army of Rookies while you play runs, then pick two from the roster for each run.
 
 It is not a vpet. Nothing happens while the game is closed.
 
@@ -59,7 +59,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 - **One strength check per raise**, on the middle hunger call (tune).
 - Filled by **training** (a short minigame; a button press is fine for the prototype) or **protein** (instant, adds weight).
 - Unfilled at the check = care mistake.
-- Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get and its quality.
+- Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get.
 - **Spamming training is fine.** No cooldown. Training counts up to **8 times per raise**; **effort is capped at 4**.
 - **Training is a timing minigame** (based on the DMX one): each species has a **pattern** shaped like a graph with **3 height tiers** across the screen. An arrow sweeps back and forth; the player stops it, and the pattern's height where it stops is the result. Stopping on the highest tier is best.
   - Patterns are **arch-like**: the height changes one tier at a time (e.g. 1-2-3-2-1), never jumping straight from high to low.
@@ -84,7 +84,7 @@ Care is done **between** run nodes, never during a fight. If a call timer would 
 
 - Mistakes are counted over the raise.
 - Care mistakes are shown as **condition hearts**, the way the Pendulum Color shows them. The number of hearts is per species (Nyaromon has 2).
-- **No death.** Mistakes only change which Rookie you get and its quality. Bad care still gives a Rookie, just a worse one (e.g. Numemon).
+- **No death.** Mistakes only change which Rookie you get. Bad care still gives a Rookie, just a different one. No Rookie is a punishment: wanting Plotmon shouldn't cost you cards or health.
 - **Evolution:** when In-Training ends, its evolution list is checked in order. The first branch whose requirements are met wins.
   - Requirements are data, from a fixed vocabulary that matches Humulos: `conditionHearts` (hearts left: the species' condition hearts minus care mistakes, floor 0) and `effort` (effort hearts, 0–4). `careMistakes` stays as the internal counter the hearts come from.
   - Example for a group with three outcomes:
@@ -97,11 +97,11 @@ Care is done **between** run nodes, never during a fight. If a call timer would 
 A Rookie that enters the roster carries:
 
 - **Species** (which Rookie: decided by care)
-- **Quality** tier from mistakes and effort, e.g. Perfect / Good / Rough (tune)
-- **Starting bonus** by quality: e.g. Perfect = +1 bonus card from its pool and a small max-HP bonus to the shared pool; Rough = none (tune)
+- **Trained stats** (ATK / DEF / HP gains from the training minigame)
+- **No quality tiers.** There is no Perfect/Good/Rough grade or bonus. (More cards isn't necessarily better anyway.)
 - **Inherited cards** from its egg (DNA eggs only, within the inherit budget)
 
-**Default starters** have no quality bonus and no inherited cards. They exist so a brand-new player, or one with an empty roster, can always start a run.
+**Default starters** have no trained stats and no inherited cards. They exist so a brand-new player, or one with an empty roster, can always start a run.
 
 ## Architecture (Godot 4.7, GDScript)
 
@@ -126,7 +126,7 @@ res://
       evolution.gd          # evaluates requirement dicts against counters (shared with runs later)
       unlocks.gd            # evaluates egg group unlock conditions (same requirement vocabulary)
       rookie.gd             # roster entry handed to runs
-    tuning.gd               # constants: poop cap, grace length, quality thresholds
+    tuning.gd               # constants: poop cap, call timer length, effort and training caps
   data/
     species/*.tres          # SpeciesDef: id, name, stage, attribute, stage duration,
                             #   hunger interval, poop per gap, evolutions[{to, reqs}], card pool, sprite
@@ -163,7 +163,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 
 ## Tests
 
-- Normal raise with perfect care → Rookie A, quality Perfect, lands in the roster, slot empties.
+- Normal raise with perfect care → Rookie A, lands in the roster, slot empties.
 - One missed feed → one mistake, still evolves (Rookie B).
 - Poor care → fallback Rookie C.
 - No care at all → still reaches Rookie (fallback), no death.
@@ -201,4 +201,3 @@ Runs, battles, cards, Extensions, retirement, DNA recycling and DNA eggs. Stub t
 - Roster cap? Can roster Rookies be released or recycled directly?
 - Exactly what unlocks each egg group (which bosses/areas, which retirements)?
 - Should the nursery be reachable mid-run only at rest nodes, or between every node?
-- What do quality tiers give exactly?

@@ -45,7 +45,7 @@ Egg groups ──► Nursery (one at a time) ──► Rookie roster (pick 2)
 
 ## Nursery
 
-Played-time care, one mon at a time: egg (~1 min) → In-Training (~10 min) → Rookie (tune). Care quality decides which Rookie you get and how strong it starts. Finished Rookies join a **roster**, so you build an army of Rookies while playing runs and pick two for each run. The nursery clock runs whenever you're playing, including during runs. Nothing happens while the game is closed.
+Played-time care, one mon at a time: egg (~1 min) → In-Training (~10 min) → Rookie (tune). Care decides which Rookie you get; training decides its starting stats. Finished Rookies join a **roster**, so you build an army of Rookies while playing runs and pick two for each run. The nursery clock runs whenever you're playing, including during runs. Nothing happens while the game is closed.
 
 - **Egg groups:** each group's In-Training mon can become one of ~3 Rookies. Groups overlap and share Rookies, so lines web together like Digimon. Ideally there's one Rookie per deck archetype.
 - **Unlocks:** you start with one egg group. Run progress unlocks more, and DNA recycling (e.g. retiring a Champion from an early-ended run) can unlock them early.
