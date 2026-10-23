@@ -38,7 +38,8 @@ docs/        design docs
 ## Working style
 
 - Small, reviewable commits with clear messages.
-- If a doc is ambiguous or a (tune) value is missing, pick a reasonable default, put it in `tuning.gd` or data, and list it in your summary. Don't stall.
-- If a design rule seems wrong once implemented, say so rather than silently changing it. Record decisions in the design docs.
+- **All decisions, including code design and tuning values, are the user's.** Propose options with a recommendation, ask one question at a time, and don't build until the user agrees. This includes gaps in the docs and missing (tune) values.
+- If a design rule seems wrong once implemented, say so rather than silently changing it. Record the user's decisions in the design docs.
 - At the end of each step, summarize what was built, what's stubbed, and open questions.
+- Use the Pendulum Virus Busters roster for greybox evolution content.
 - Personal project: never reference work accounts, work code, or employer resources.
