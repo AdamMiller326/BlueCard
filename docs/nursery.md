@@ -180,7 +180,10 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 
 ## Prototype content
 
-- **Greybox with the Pendulum Virus Busters roster** for branching flow: one egg group (its In-Training form and three Rookie outcomes from that roster's chart), placeholder art (colored shapes).
+- **Greybox with the Pendulum Virus Busters roster**, placeholder art (colored shapes).
+- Egg group: **Nyaromon** (In-Training). Its Rookies are Agumon, Gabumon, Plotmon and Gammamon.
+- **First slice uses two Rookies: Agumon and Gabumon.** Plotmon and Gammamon come later.
+- Champions for the slice (runs, later): Greymon, Leomon and Garurumon.
 - A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
 
 ## Out of scope for this weekend
