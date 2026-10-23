@@ -184,6 +184,7 @@ Runs, battles, cards, Extensions, retirement, DNA recycling and DNA eggs. Stub t
 
 ## Open questions
 
+- Could the nursery (the vpet side) grow into how meta progression is handled?
 - Is ~11 min per Rookie right?
 - Roster cap? Can roster Rookies be released or recycled directly?
 - Exactly what unlocks each egg group (which bosses/areas, which retirements)?
