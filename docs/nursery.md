@@ -58,7 +58,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 - **One strength check per raise**, on the middle hunger window (tune).
 - Filled by **training** (a short minigame; a button press is fine for the prototype) or **protein** (instant, adds weight).
 - Unfilled at the check = care mistake.
-- Every 4 trainings = 1 **effort** point (tune). Effort feeds which Rookie you get and its quality.
+- Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get and its quality.
 - **Spamming training is fine.** No cooldown. Training counts up to **8 times per raise**; **effort is capped at 4**.
 - **Training is a timing minigame** (based on the DMX one). Each success gives **+1 or +2 to a random stat** depending on timing. Stat gains carry to the Rookie. (Random stat uses the seeded RNG in state.)
 - Rookies with lower effort requirements get **higher base stats** to compensate.
