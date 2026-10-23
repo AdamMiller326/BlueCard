@@ -69,7 +69,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 **Poop**
 
-- Each egg group has a fixed **poop count per gap** between hunger calls (2–4), spread evenly. One jumbo per gap at most (tune).
+- Each egg group has a fixed **poop count per gap** between hunger calls (2–4), spread evenly. Each poop has a small chance (~5%) to be a **jumbo** (tune), rolled with the seeded RNG in state.
 - Poop is removed with the **Clean** menu action.
 - **8 poop points = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
 - Designed so you can't hit the cap if you clean once per gap.
@@ -109,7 +109,7 @@ A Rookie that enters the roster carries:
 
 - **Logic is plain classes** (`RefCounted`), with no `Node` or scene dependencies. Scenes only display state and send actions.
 - **No `Time.get_*` or OS time in logic.** Time comes in as played seconds from the clock.
-- **No global randomness in logic.** Use a seeded `RandomNumberGenerator` stored in state. (Poop timing is deterministic anyway.)
+- **No global randomness in logic.** Use a seeded `RandomNumberGenerator` stored in state. (Poop timing is deterministic; the jumbo roll and training stat use the seeded RNG.)
 - **All numbers in data.** Species, egg groups and tuning live in Godot Resources (`.tres`), never in logic code.
 - **The logic is the same code runs will call.** A run's nursery check between nodes calls the same functions.
 
@@ -186,6 +186,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - **Greybox with the Pendulum Virus Busters roster**, placeholder art (colored shapes).
 - Egg group: **Nyaromon** (In-Training). Its Rookies are Agumon, Gabumon, Plotmon and Gammamon.
 - **First slice uses two Rookies: Agumon and Gabumon.** Plotmon and Gammamon come later.
+- Nyaromon's numbers: egg hatch 60 s, In-Training 600 s, hunger interval 120 s (calls at 2:00, 4:00, 6:00, 8:00), call timer 120 s (shared), strength check on the 2nd call, 3 poops per gap, 2 condition hearts, base weight 8 (Humulos min weight). Overfeed +1 weight, protein +2.
 - Nyaromon (2 condition hearts): `{"conditionHearts": ">=1"}` → **Agumon**; `{}` → **Gabumon** (fallback). When Plotmon is added: Gabumon `{"conditionHearts": "0", "effort": ">=1"}`, Plotmon `{}`.
 - Champions for the slice (runs, later): Greymon, Leomon and Garurumon.
 - A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
