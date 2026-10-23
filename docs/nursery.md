@@ -70,7 +70,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 - The mon **poops occasionally**: each gap between poops is random, about **1:30 to 2:30** played (per species range, rolled with the seeded RNG; not tied to hunger calls). Each poop has a small chance (~5%) to be a **jumbo** (tune), rolled with the seeded RNG in state.
 - Poop is removed with the **Clean** menu action.
-- **Reaching 6 poop points without cleaning = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
+- **Reaching 4 poop points without cleaning = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
 
 **No sickness and no death in the nursery.** No sleep need either. The raise is too short for it.
 
@@ -165,7 +165,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - One missed feed → one mistake, still evolves (Rookie B).
 - Poor care → fallback Rookie C.
 - No care at all → still reaches Rookie (fallback), no death.
-- Poop: cleaning before 6 points never costs a mistake; leaving it until 6 points → one mistake, and no second one until cleaned.
+- Poop: cleaning before 4 points never costs a mistake; leaving it until 4 points → one mistake, and no second one until cleaned.
 - Battle grace: a deadline inside a battle is extended; same deadline outside a battle is not.
 - Egg picker only offers unlocked groups; an unlock condition being met unlocks its group.
 - **Chunk invariance:** advancing 660 s in one call equals 660 calls of 1 s.
