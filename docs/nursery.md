@@ -61,7 +61,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 - Unfilled at the check = care mistake.
 - Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get and its quality.
 - **Spamming training is fine.** No cooldown. Training counts up to **8 times per raise**; **effort is capped at 4**.
-- **Training is a timing minigame** (based on the DMX one). Each success gives **+1 or +2 to a random stat** depending on timing. Stat gains carry to the Rookie. (Random stat uses the seeded RNG in state.)
+- **Training is a timing minigame** (based on the DMX one): each species has a **pattern** shaped like a graph with **3 height tiers** across the screen. An arrow sweeps back and forth; the player stops it, and the pattern's height where it stops is the result. Stopping on the highest tier is best. Each success gives **+1 or +2 to a random stat** depending on timing. Stat gains carry to the Rookie. (Random stat uses the seeded RNG in state.)
 - Rookies with lower effort requirements get **higher base stats** to compensate.
 - Later: different training types and minigames that stat-train the mon, giving its Rookie different effects.
 
