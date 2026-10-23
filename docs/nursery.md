@@ -51,7 +51,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 - Hearts drain toward a **fixed schedule** of hunger windows, about every 2.5 min played (~4 per raise) (tune).
 - When hearts hit empty, a **grace window** opens (~2 min played) (tune). Feeding in the grace window is fine. If it closes unfed, that's a **care mistake**.
 - Feeding doesn't shift the schedule. Hearts are a view of the schedule, so the UI can show "hungry in 1:20".
-- Overfeeding adds weight. At max weight the mon gets sick.
+- Overfeeding adds weight. Weight has no effect in the nursery; it carries over on the Rookie (reaching 100 matters later, as on the DMX/Pendulum).
 
 **Strength**
 
@@ -60,14 +60,13 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 - Unfilled at the check = care mistake.
 - Every 4 trainings = 1 **effort** point (tune). Effort feeds which Rookie you get and its quality.
 
-**Poop and sickness**
+**Poop**
 
 - Each egg group has a fixed **poop count per gap** between hunger windows (2–4), spread evenly. One jumbo per gap at most (tune).
-- **8 poop points = sick** (normal 1, jumbo 2). The cap is one constant.
-- Designed so you can't get sick unless you missed a window.
-- Sickness must be treated (medicine) before the next window closes, or it's a care mistake. Missing a second window while sick = **death**.
+- Poop is removed with the **Clean** menu action.
+- What uncleaned poop costs is an open question (see below).
 
-No sleep need. The raise is too short for it.
+**No sickness and no death in the nursery.** No sleep need either. The raise is too short for it.
 
 ### Battle grace rule
 
@@ -76,7 +75,7 @@ Care is done **between** run nodes, never during a fight. If a grace window woul
 ### Care mistakes and outcomes
 
 - Mistakes are counted over the raise.
-- **Death:** reaching a mistake threshold (tune, e.g. ~60% of the raise's failure points: 4 hunger + 1 strength = 5, so death at 3), or untreated sickness. The slot empties; the player can start a new egg from any unlocked group. Death costs time, not eggs.
+- **No death.** Mistakes only change which Rookie you get and its quality. Bad care still gives a Rookie, just a worse one (e.g. Numemon).
 - **Evolution:** when In-Training ends, its evolution list is checked in order. The first branch whose requirements are met wins.
   - Requirements are data, from a fixed vocabulary.
   - Example for a group with three outcomes:
@@ -112,8 +111,8 @@ res://
   core/
     nursery/
       nursery_state.gd      # the slot, the roster, unlocked egg groups; serializable to/from Dictionary
-      slot_state.gd         # one mon: stage, age, hearts schedule, poop, sickness, mistakes, effort
-      nursery_logic.gd      # advance(state, played_seconds) -> events; actions: start_egg, feed, protein, train, clean, medicine
+      slot_state.gd         # one mon: stage, age, hearts schedule, poop, mistakes, effort
+      nursery_logic.gd      # advance(state, played_seconds) -> events; actions: start_egg, feed, protein, train, clean
       care_schedule.gd      # computes hunger windows, strength check, poop times for a raise
       evolution.gd          # evaluates requirement dicts against counters (shared with runs later)
       unlocks.gd            # evaluates egg group unlock conditions (same requirement vocabulary)
@@ -138,7 +137,7 @@ res://
 
 1. `PlayClock` emits `tick(played_delta)` every frame while not paused (scaled by debug time scale).
 2. `GameState` calls `NurseryLogic.advance(nursery_state, played_delta)`.
-3. `advance` walks events in time order: hearts empty, grace closes, strength check, poop, sickness deadline, stage end → evolution → roster. It returns a list of events for the UI (`hatched`, `hungry`, `pooped`, `sick`, `evolved`, `to_roster`, `died`, `mistake`).
+3. `advance` walks events in time order: hearts empty, grace closes, strength check, poop, stage end → evolution → roster. It returns a list of events for the UI (`hatched`, `hungry`, `pooped`, `evolved`, `to_roster`, `mistake`).
 4. Player actions (`start_egg`, `feed`, `train`, `clean`, …) are functions that take state and return new state plus events.
 5. `GameState` autosaves on events and on a timer.
 
@@ -158,9 +157,8 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - Normal raise with perfect care → Rookie A, quality Perfect, lands in the roster, slot empties.
 - One missed feed → one mistake, still evolves (Rookie B).
 - Poor care → fallback Rookie C.
-- Missed windows past the death threshold → death, slot empties, roster unchanged.
-- Poop: no misses never reaches the sickness cap; one miss on a 4-poop group → sick.
-- Sickness untreated through two windows → death; medicine in time → recovers.
+- No care at all → still reaches Rookie (fallback), no death.
+- Poop: tests follow whatever uncleaned poop ends up costing.
 - Battle grace: a deadline inside a battle is extended; same deadline outside a battle is not.
 - Egg picker only offers unlocked groups; an unlock condition being met unlocks its group.
 - **Chunk invariance:** advancing 660 s in one call equals 660 calls of 1 s.
@@ -170,7 +168,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 ## Debug tools
 
 - Time scale ×1 / ×10 / ×60
-- Unlock egg group, force next stage, force sick, add Rookie to roster
+- Unlock egg group, force next stage, add Rookie to roster
 - Overlay showing upcoming hunger windows, poop times, deadlines and mistake count
 - Hide debug UI in release builds
 
@@ -185,6 +183,7 @@ Runs, battles, cards, Extensions, retirement, DNA recycling and DNA eggs. Stub t
 
 ## Open questions
 
+- What does uncleaned poop cost now that there's no sickness?
 - Is ~11 min per Rookie right?
 - Roster cap? Can roster Rookies be released or recycled directly?
 - Exactly what unlocks each egg group (which bosses/areas, which retirements)?
