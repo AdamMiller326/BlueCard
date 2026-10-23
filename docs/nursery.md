@@ -81,6 +81,7 @@ Care is done **between** run nodes, never during a fight. If a call timer would 
 ### Care mistakes and outcomes
 
 - Mistakes are counted over the raise.
+- Care mistakes are shown as **condition hearts**, the way the Pendulum Color shows them. The number of hearts is per species (Nyaromon has 2).
 - **No death.** Mistakes only change which Rookie you get and its quality. Bad care still gives a Rookie, just a worse one (e.g. Numemon).
 - **Evolution:** when In-Training ends, its evolution list is checked in order. The first branch whose requirements are met wins.
   - Requirements are data, from a fixed vocabulary.
@@ -183,6 +184,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - **Greybox with the Pendulum Virus Busters roster**, placeholder art (colored shapes).
 - Egg group: **Nyaromon** (In-Training). Its Rookies are Agumon, Gabumon, Plotmon and Gammamon.
 - **First slice uses two Rookies: Agumon and Gabumon.** Plotmon and Gammamon come later.
+- Nyaromon's evolutions: `{"careMistakes": "<=1"}` → **Agumon**; `{}` → **Gabumon** (fallback).
 - Champions for the slice (runs, later): Greymon, Leomon and Garurumon.
 - A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
 
