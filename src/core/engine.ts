@@ -313,7 +313,6 @@ function hatch(state: GameState, ctx: EngineContext, t: number): string {
     dead: null,
     history: [def.id],
   };
-  log(state, t, `${def.name} hatched!`);
   return `${def.name} hatched!`;
 }
 
