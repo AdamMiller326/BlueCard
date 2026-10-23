@@ -1,0 +1,45 @@
+{
+  "id": "nsp:metalgarurumon",
+  "name": "MetalGarurumon",
+  "desc": "Armored wolf.",
+  "stage": 6,
+  "attribute": "data",
+  "power": 70,
+  "moveset": [
+    "nsp:howl",
+    "nsp:blue-flame"
+  ],
+  "poopPerGap": 4,
+  "evolutions": [],
+  "sprite": {
+    "sheet": "assets/metalgarurumon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

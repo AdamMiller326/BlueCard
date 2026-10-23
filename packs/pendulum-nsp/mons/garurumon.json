@@ -1,0 +1,57 @@
+{
+  "id": "nsp:garurumon",
+  "name": "Garurumon",
+  "desc": "A swift wolf.",
+  "stage": 4,
+  "attribute": "vaccine",
+  "power": 25,
+  "moveset": [
+    "nsp:howl",
+    "nsp:blue-flame"
+  ],
+  "poopPerGap": 4,
+  "evolutions": [
+    {
+      "to": "nsp:weregarurumon",
+      "reqs": {
+        "careMistakes": "<=6",
+        "level": ">=5"
+      }
+    },
+    {
+      "to": "nsp:monzaemon",
+      "reqs": {}
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/garurumon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

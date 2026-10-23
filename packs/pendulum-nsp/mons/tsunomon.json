@@ -1,0 +1,57 @@
+{
+  "id": "nsp:tsunomon",
+  "name": "Tsunomon",
+  "desc": "A furry baby with a little horn.",
+  "stage": 2,
+  "attribute": "free",
+  "power": 2,
+  "moveset": [
+    "nsp:bubble",
+    "nsp:horn-dash"
+  ],
+  "poopPerGap": 4,
+  "evolutions": [
+    {
+      "to": "nsp:gabumon",
+      "reqs": {
+        "careMistakes": "<=2",
+        "effort": ">=1"
+      }
+    },
+    {
+      "to": "nsp:elecmon",
+      "reqs": {}
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/tsunomon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

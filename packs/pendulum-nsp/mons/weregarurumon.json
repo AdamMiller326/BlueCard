@@ -1,0 +1,54 @@
+{
+  "id": "nsp:weregarurumon",
+  "name": "WereGarurumon",
+  "desc": "Stands and fights.",
+  "stage": 5,
+  "attribute": "vaccine",
+  "power": 45,
+  "moveset": [
+    "nsp:howl",
+    "nsp:fist"
+  ],
+  "poopPerGap": 4,
+  "evolutions": [
+    {
+      "to": "nsp:metalgarurumon",
+      "reqs": {
+        "careMistakes": "<=10",
+        "level": ">=8",
+        "bossCleared": "nsp:area-1"
+      }
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/weregarurumon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

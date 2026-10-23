@@ -1,0 +1,63 @@
+{
+  "id": "nsp:gabumon",
+  "name": "Gabumon",
+  "desc": "Shy, wears a pelt.",
+  "stage": 3,
+  "attribute": "data",
+  "power": 10,
+  "moveset": [
+    "nsp:blue-flame",
+    "nsp:horn-dash"
+  ],
+  "poopPerGap": 4,
+  "evolutions": [
+    {
+      "to": "nsp:garurumon",
+      "reqs": {
+        "careMistakes": "<=3",
+        "effort": ">=3"
+      }
+    },
+    {
+      "to": "nsp:leomon",
+      "reqs": {
+        "careMistakes": "<=5"
+      }
+    },
+    {
+      "to": "nsp:numemon",
+      "reqs": {}
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/gabumon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

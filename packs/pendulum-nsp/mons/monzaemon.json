@@ -1,0 +1,45 @@
+{
+  "id": "nsp:monzaemon",
+  "name": "Monzaemon",
+  "desc": "Huggable and strong.",
+  "stage": 5,
+  "attribute": "vaccine",
+  "power": 40,
+  "moveset": [
+    "nsp:fist",
+    "nsp:slime"
+  ],
+  "poopPerGap": 5,
+  "evolutions": [],
+  "sprite": {
+    "sheet": "assets/monzaemon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

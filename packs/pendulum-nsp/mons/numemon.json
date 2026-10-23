@@ -1,0 +1,49 @@
+{
+  "id": "nsp:numemon",
+  "name": "Numemon",
+  "desc": "Messy. Very messy.",
+  "stage": 4,
+  "attribute": "virus",
+  "power": 12,
+  "moveset": [
+    "nsp:slime"
+  ],
+  "poopPerGap": 6,
+  "evolutions": [
+    {
+      "to": "nsp:monzaemon",
+      "reqs": {}
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/numemon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

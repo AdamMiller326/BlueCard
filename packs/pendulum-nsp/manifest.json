@@ -1,0 +1,8 @@
+{
+  "id": "nsp",
+  "name": "Pendulum Nature Spirits (placeholder line)",
+  "version": "0.1.0",
+  "author": "BlueCard contributors",
+  "depends": [],
+  "starters": ["nsp:punimon"]
+}

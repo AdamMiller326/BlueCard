@@ -1,0 +1,58 @@
+{
+  "id": "nsp:leomon",
+  "name": "Leomon",
+  "desc": "A proud fighter. Needs only two meals a day.",
+  "stage": 4,
+  "attribute": "vaccine",
+  "power": 27,
+  "moveset": [
+    "nsp:fist",
+    "nsp:howl"
+  ],
+  "poopPerGap": 3,
+  "careWindows": 2,
+  "evolutions": [
+    {
+      "to": "nsp:panjyamon",
+      "reqs": {
+        "careMistakes": "<=8",
+        "level": ">=4"
+      }
+    },
+    {
+      "to": "nsp:monzaemon",
+      "reqs": {}
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/leomon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}

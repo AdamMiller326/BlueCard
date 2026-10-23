@@ -1,0 +1,49 @@
+{
+  "id": "nsp:punimon",
+  "name": "Punimon",
+  "desc": "A tiny jelly-like baby.",
+  "stage": 1,
+  "attribute": "free",
+  "power": 1,
+  "moveset": [
+    "nsp:bubble"
+  ],
+  "poopPerGap": 3,
+  "evolutions": [
+    {
+      "to": "nsp:tsunomon",
+      "reqs": {}
+    }
+  ],
+  "sprite": {
+    "sheet": "assets/punimon.png",
+    "frames": 8,
+    "animations": {
+      "idle": [
+        0,
+        1
+      ],
+      "eat": [
+        2,
+        0
+      ],
+      "happy": [
+        3,
+        1
+      ],
+      "refuse": [
+        4
+      ],
+      "sleep": [
+        5
+      ],
+      "sick": [
+        6
+      ],
+      "attack": [
+        7,
+        0
+      ]
+    }
+  }
+}
