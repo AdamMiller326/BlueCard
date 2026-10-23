@@ -64,7 +64,8 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 - Each egg group has a fixed **poop count per gap** between hunger windows (2–4), spread evenly. One jumbo per gap at most (tune).
 - Poop is removed with the **Clean** menu action.
-- What uncleaned poop costs is an open question (see below).
+- **8 poop points = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
+- Designed so you can't hit the cap if you clean once per gap.
 
 **No sickness and no death in the nursery.** No sleep need either. The raise is too short for it.
 
@@ -158,7 +159,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - One missed feed → one mistake, still evolves (Rookie B).
 - Poor care → fallback Rookie C.
 - No care at all → still reaches Rookie (fallback), no death.
-- Poop: tests follow whatever uncleaned poop ends up costing.
+- Poop: cleaning every gap never reaches the cap; one missed clean on a 4-poop group → one mistake.
 - Battle grace: a deadline inside a battle is extended; same deadline outside a battle is not.
 - Egg picker only offers unlocked groups; an unlock condition being met unlocks its group.
 - **Chunk invariance:** advancing 660 s in one call equals 660 calls of 1 s.
@@ -183,7 +184,6 @@ Runs, battles, cards, Extensions, retirement, DNA recycling and DNA eggs. Stub t
 
 ## Open questions
 
-- What does uncleaned poop cost now that there's no sickness?
 - Is ~11 min per Rookie right?
 - Roster cap? Can roster Rookies be released or recycled directly?
 - Exactly what unlocks each egg group (which bosses/areas, which retirements)?
