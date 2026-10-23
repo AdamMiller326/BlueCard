@@ -69,10 +69,9 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 **Poop**
 
-- Each egg group has a fixed **poop count per gap** between hunger calls (2–4), spread evenly. Each poop has a small chance (~5%) to be a **jumbo** (tune), rolled with the seeded RNG in state.
+- The mon **poops occasionally** on its own fixed interval (per species, not tied to hunger calls). Each poop has a small chance (~5%) to be a **jumbo** (tune), rolled with the seeded RNG in state.
 - Poop is removed with the **Clean** menu action.
-- **8 poop points = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
-- Designed so you can't hit the cap if you clean once per gap.
+- **Reaching 8 poop points without cleaning = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
 
 **No sickness and no death in the nursery.** No sleep need either. The raise is too short for it.
 
@@ -129,7 +128,7 @@ res://
     tuning.gd               # constants: poop cap, call timer length, effort and training caps
   data/
     species/*.tres          # SpeciesDef: id, name, stage, attribute, stage duration,
-                            #   hunger interval, poop per gap, evolutions[{to, reqs}], card pool, sprite
+                            #   hunger interval, poop interval, evolutions[{to, reqs}], card pool, sprite
     egg_groups/*.tres       # EggGroupDef: id, in_training species, unlock reqs, inherit budget
   autoload/
     play_clock.gd           # emits tick(played_delta); time scale; pauses with the game
@@ -167,7 +166,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - One missed feed → one mistake, still evolves (Rookie B).
 - Poor care → fallback Rookie C.
 - No care at all → still reaches Rookie (fallback), no death.
-- Poop: cleaning every gap never reaches the cap; one missed clean on a 4-poop group → one mistake.
+- Poop: cleaning before 8 points never costs a mistake; leaving it until 8 points → one mistake, and no second one until cleaned.
 - Battle grace: a deadline inside a battle is extended; same deadline outside a battle is not.
 - Egg picker only offers unlocked groups; an unlock condition being met unlocks its group.
 - **Chunk invariance:** advancing 660 s in one call equals 660 calls of 1 s.
@@ -186,7 +185,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - **Greybox with the Pendulum Virus Busters roster**, placeholder art (colored shapes).
 - Egg group: **Nyaromon** (In-Training). Its Rookies are Agumon, Gabumon, Plotmon and Gammamon.
 - **First slice uses two Rookies: Agumon and Gabumon.** Plotmon and Gammamon come later.
-- Nyaromon's numbers: egg hatch 60 s, In-Training 600 s, hunger interval 120 s (calls at 2:00, 4:00, 6:00, 8:00), call timer 120 s (shared), strength check on the 2nd call, 3 poops per gap, 2 condition hearts, base weight 8 (Humulos min weight). Overfeed +1 weight, protein +2.
+- Nyaromon's numbers: egg hatch 60 s, In-Training 600 s, hunger interval 120 s (calls at 2:00, 4:00, 6:00, 8:00), call timer 120 s (shared), strength check on the 2nd call, poop interval TBD, 2 condition hearts, base weight 8 (Humulos min weight). Overfeed +1 weight, protein +2.
 - Nyaromon (2 condition hearts): `{"conditionHearts": ">=1"}` → **Agumon**; `{}` → **Gabumon** (fallback). When Plotmon is added: Gabumon `{"conditionHearts": "0", "effort": ">=1"}`, Plotmon `{}`.
 - Champions for the slice (runs, later): Greymon, Leomon and Garurumon.
 - A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
