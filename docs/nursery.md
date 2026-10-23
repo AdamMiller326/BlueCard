@@ -54,11 +54,10 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 - Feeding doesn't shift the schedule. Hearts are a view of the schedule, so the UI can show "hungry in 1:20".
 - Overfeeding adds weight. Weight has no effect in the nursery; it carries over on the Rookie (reaching 100 matters later, as on the DMX/Pendulum).
 
-**Strength**
+**Training and protein**
 
-- **One strength check per raise**, on the middle hunger call (tune).
-- Filled by **training** (a short minigame; a button press is fine for the prototype) or **protein** (instant, adds weight).
-- Unfilled at the check = care mistake.
+- **No strength check** and no strength need. Nothing is split into scheduled sections apart from hunger calls.
+- **Protein vs training is a choice.** Training (the minigame below) is what gives stat boosts. Protein is instant and adds weight; what else it does is still open.
 - Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get.
 - **Spamming training is fine.** No cooldown. Training counts up to **8 times per raise**; **effort is capped at 4**.
 - **Training is a timing minigame** (based on the DMX one): each species has a **pattern** shaped like a graph with **3 height tiers** across the screen. An arrow sweeps back and forth; the player stops it, and the pattern's height where it stops is the result. Stopping on the highest tier is best.
@@ -69,9 +68,9 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 
 **Poop**
 
-- The mon **poops occasionally** on its own fixed interval (per species, not tied to hunger calls). Each poop has a small chance (~5%) to be a **jumbo** (tune), rolled with the seeded RNG in state.
+- The mon **poops occasionally**: each gap between poops is random, about **1:30 to 2:30** played (per species range, rolled with the seeded RNG; not tied to hunger calls). Each poop has a small chance (~5%) to be a **jumbo** (tune), rolled with the seeded RNG in state.
 - Poop is removed with the **Clean** menu action.
-- **Reaching 8 poop points without cleaning = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
+- **Reaching 6 poop points without cleaning = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
 
 **No sickness and no death in the nursery.** No sleep need either. The raise is too short for it.
 
@@ -108,7 +107,7 @@ A Rookie that enters the roster carries:
 
 - **Logic is plain classes** (`RefCounted`), with no `Node` or scene dependencies. Scenes only display state and send actions.
 - **No `Time.get_*` or OS time in logic.** Time comes in as played seconds from the clock.
-- **No global randomness in logic.** Use a seeded `RandomNumberGenerator` stored in state. (Poop timing is deterministic; the jumbo roll and training stat use the seeded RNG.)
+- **No global randomness in logic.** Use a seeded `RandomNumberGenerator` stored in state. (Poop gaps, the jumbo roll and the training stat use the seeded RNG.)
 - **All numbers in data.** Species, egg groups and tuning live in Godot Resources (`.tres`), never in logic code.
 - **The logic is the same code runs will call.** A run's nursery check between nodes calls the same functions.
 
@@ -121,7 +120,7 @@ res://
       nursery_state.gd      # the slot, the roster, unlocked egg groups; serializable to/from Dictionary
       slot_state.gd         # one mon: stage, age, hearts schedule, poop, mistakes, effort
       nursery_logic.gd      # advance(state, played_seconds) -> events; actions: start_egg, feed, protein, train, clean
-      care_schedule.gd      # computes hunger calls, strength check, poop times for a raise
+      care_schedule.gd      # computes hunger calls and poop times for a raise
       evolution.gd          # evaluates requirement dicts against counters (shared with runs later)
       unlocks.gd            # evaluates egg group unlock conditions (same requirement vocabulary)
       rookie.gd             # roster entry handed to runs
@@ -145,7 +144,7 @@ res://
 
 1. `PlayClock` emits `tick(played_delta)` every frame while not paused (scaled by debug time scale).
 2. `GameState` calls `NurseryLogic.advance(nursery_state, played_delta)`.
-3. `advance` walks events in time order: hearts empty, grace closes, strength check, poop, stage end → evolution → roster. It returns a list of events for the UI (`hatched`, `hungry`, `pooped`, `evolved`, `to_roster`, `mistake`).
+3. `advance` walks events in time order: hearts empty, call timer runs out, poop, stage end → evolution → roster. It returns a list of events for the UI (`hatched`, `hungry`, `pooped`, `evolved`, `to_roster`, `mistake`).
 4. Player actions (`start_egg`, `feed`, `train`, `clean`, …) are functions that take state and return new state plus events.
 5. `GameState` autosaves on events and on a timer.
 
@@ -166,7 +165,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - One missed feed → one mistake, still evolves (Rookie B).
 - Poor care → fallback Rookie C.
 - No care at all → still reaches Rookie (fallback), no death.
-- Poop: cleaning before 8 points never costs a mistake; leaving it until 8 points → one mistake, and no second one until cleaned.
+- Poop: cleaning before 6 points never costs a mistake; leaving it until 6 points → one mistake, and no second one until cleaned.
 - Battle grace: a deadline inside a battle is extended; same deadline outside a battle is not.
 - Egg picker only offers unlocked groups; an unlock condition being met unlocks its group.
 - **Chunk invariance:** advancing 660 s in one call equals 660 calls of 1 s.
@@ -185,7 +184,7 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 - **Greybox with the Pendulum Virus Busters roster**, placeholder art (colored shapes).
 - Egg group: **Nyaromon** (In-Training). Its Rookies are Agumon, Gabumon, Plotmon and Gammamon.
 - **First slice uses two Rookies: Agumon and Gabumon.** Plotmon and Gammamon come later.
-- Nyaromon's numbers: egg hatch 60 s, In-Training 600 s, hunger interval 120 s (calls at 2:00, 4:00, 6:00, 8:00), call timer 120 s (shared), strength check on the 2nd call, poop interval TBD, 2 condition hearts, base weight 8 (Humulos min weight). Overfeed +1 weight, protein +2.
+- Nyaromon's numbers: egg hatch 60 s, In-Training 600 s, hunger interval 120 s (calls at 2:00, 4:00, 6:00, 8:00), call timer 120 s (shared), poop every 90–150 s (random), 2 condition hearts, base weight 8 (Humulos min weight). Overfeed +1 weight, protein +2.
 - Nyaromon (2 condition hearts): `{"conditionHearts": ">=1"}` → **Agumon**; `{}` → **Gabumon** (fallback). When Plotmon is added: Gabumon `{"conditionHearts": "0", "effort": ">=1"}`, Plotmon `{}`.
 - Champions for the slice (runs, later): Greymon, Leomon and Garurumon.
 - A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
