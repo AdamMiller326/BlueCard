@@ -168,7 +168,7 @@ Keep plain words for common actions (Attack, Block). Save computer flavor for sp
 - Start from Slay the Spire baselines (3 energy, ~6 damage basic attack, ~5 block basic defend) and tune from there.
 - Prototype tiny: two Rookies, one evolution each, ~12 cards per mon, Act 1 only, three enemies, one mini-boss, one boss.
 - **Sim bot:** a headless auto-player that runs thousands of fights and reports win rates, turn counts and which cards correlate with wins.
-- All numbers live in data (Resources/JSON), never hardcoded.
+- All numbers live in data (Godot Resources), never hardcoded.
 - Watch for outscaling too early (an act going flat) and cross-run creep from DNA inheritance.
 - Friends playtest: watch where they die and which cards they always or never pick.
 

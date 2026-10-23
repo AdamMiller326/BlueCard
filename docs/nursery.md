@@ -108,7 +108,7 @@ A Rookie that enters the roster carries:
 - **Logic is plain classes** (`RefCounted`), with no `Node` or scene dependencies. Scenes only display state and send actions.
 - **No `Time.get_*` or OS time in logic.** Time comes in as played seconds from the clock.
 - **No global randomness in logic.** Use a seeded `RandomNumberGenerator` stored in state. (Poop timing is deterministic anyway.)
-- **All numbers in data.** Species, egg groups and tuning live in Resources (`.tres`) or JSON, never in logic code.
+- **All numbers in data.** Species, egg groups and tuning live in Godot Resources (`.tres`), never in logic code.
 - **The logic is the same code runs will call.** A run's nursery check between nodes calls the same functions.
 
 ### Layout
