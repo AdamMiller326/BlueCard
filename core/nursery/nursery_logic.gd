@@ -107,16 +107,19 @@ static func protein(state: NurseryState, _catalog: Catalog, i: int) -> Array:
 
 
 ## Fills strength and counts toward effort. Child only, with a cooldown.
-static func train(state: NurseryState, _catalog: Catalog, i: int) -> Array:
+static func train(state: NurseryState, catalog: Catalog, i: int) -> Array:
 	if not can_train(state, i):
 		return [_rejected(state, i, "train")]
 	var s := state.slots[i]
 	s.strength_filled = true
 	s.trainings += 1
 	s.last_train_at = state.time
-	_add_weight(s, Tuning.WEIGHT_PER_TRAINING)
+	var floor_weight := catalog.get_species(s.species_id).base_weight
+	if s.weight > floor_weight:
+		_add_weight(s, maxi(Tuning.WEIGHT_PER_TRAINING, floor_weight - s.weight))
 	var events := [_event("trained", i, state.time, {"trainings": s.trainings})]
-	if s.trainings % Tuning.TRAININGS_PER_EFFORT == 0:
+	if s.trainings % Tuning.TRAININGS_PER_EFFORT == 0 \
+			and s.trainings <= Tuning.EFFORT_MAX * Tuning.TRAININGS_PER_EFFORT:
 		events.append(_event("effort", i, state.time, {"effort": s.effort()}))
 	return events
 

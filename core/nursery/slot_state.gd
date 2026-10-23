@@ -56,7 +56,7 @@ func is_raising() -> bool:
 
 func effort() -> int:
 	@warning_ignore("integer_division")
-	return trainings / Tuning.TRAININGS_PER_EFFORT
+	return mini(trainings / Tuning.TRAININGS_PER_EFFORT, Tuning.EFFORT_MAX)
 
 
 func total_mistakes() -> int:

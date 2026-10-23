@@ -151,6 +151,29 @@ func test_training_cooldown_and_effort() -> void:
 	assert_eq(effort_events.size(), 1)
 
 
+func test_effort_is_capped() -> void:
+	var st := H.state_with_egg(cat)
+	H.run(st, cat, 700)
+	var effort_events: Array = []
+	for _i in 40:
+		effort_events.append_array(H.of_type(NurseryLogic.train(st, cat, 0), "effort"))
+		H.run(st, cat, int(Tuning.TRAIN_COOLDOWN_SECONDS))
+	assert_eq(st.slots[0].trainings, 40)
+	assert_eq(st.slots[0].effort(), Tuning.EFFORT_MAX)
+	assert_eq(effort_events.size(), Tuning.EFFORT_MAX)
+
+
+func test_training_never_drops_below_base_weight() -> void:
+	var st := H.state_with_egg(cat)
+	H.run(st, cat, 700)
+	var s := st.slots[0]
+	NurseryLogic.protein(st, cat, 0)  # base + 2
+	for _i in 5:
+		NurseryLogic.train(st, cat, 0)
+		H.run(st, cat, int(Tuning.TRAIN_COOLDOWN_SECONDS))
+	assert_eq(s.weight, cat.get_species("tsunomon").base_weight)
+
+
 func test_overfeeding_adds_weight_and_keeps_schedule() -> void:
 	var st := H.state_with_egg(cat)
 	H.run(st, cat, 100)

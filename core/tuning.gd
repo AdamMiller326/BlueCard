@@ -21,6 +21,9 @@ const POOP_POINTS_JUMBO := 2
 
 ## Trainings per effort point. (nursery.md: Needs > Strength, "every 4 trainings")
 const TRAININGS_PER_EFFORT := 4
+## Effort stops counting here, like the Pendulum's effort hearts.
+## (nursery.md: Needs > Strength)
+const EFFORT_MAX := 4
 ## Played seconds before another training counts. Stops button-mashing effort.
 ## (nursery.md: Needs > Strength)
 const TRAIN_COOLDOWN_SECONDS := 20.0
@@ -29,6 +32,7 @@ const TRAIN_COOLDOWN_SECONDS := 20.0
 ## (nursery.md: Needs > Weight)
 const WEIGHT_PER_OVERFEED := 1
 const WEIGHT_PER_PROTEIN := 2
+## Training can't take a mon below its species' base weight.
 const WEIGHT_PER_TRAINING := -1
 const WEIGHT_MIN := 1
 const WEIGHT_MAX := 99
