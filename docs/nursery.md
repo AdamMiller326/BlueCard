@@ -57,7 +57,7 @@ No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come fr
 **Training and protein**
 
 - **No strength check** and no strength need. Nothing is split into scheduled sections apart from hunger calls.
-- **Protein vs training is a choice.** Training (the minigame below) is what gives stat boosts. Protein is instant and adds weight; what else it does is still open.
+- **Protein vs training is a choice.** Training (the minigame below) is what gives stat boosts. **Protein is a shortcut training**: instant, counts toward effort and the cap of 8 like a training, but gives **no stat** and adds +2 weight. Fast effort vs. stat boosts.
 - Every 2 trainings = 1 **effort** point, so each training is half an effort heart (tune). Effort feeds which Rookie you get.
 - **Spamming training is fine.** No cooldown. Training counts up to **8 times per raise**; **effort is capped at 4**.
 - **Training is a timing minigame** (based on the DMX one): each species has a **pattern** shaped like a graph with **3 height tiers** across the screen. An arrow sweeps back and forth; the player stops it, and the pattern's height where it stops is the result. Stopping on the highest tier is best.
