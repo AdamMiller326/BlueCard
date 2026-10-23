@@ -4,18 +4,29 @@
 
 ## Purpose
 
-The nursery is where you raise your next pair of mons. It turns eggs into Rookies through short, played-time care. Care quality decides **which Rookie** you get and **how strong it starts** a run. It runs in the background while you play runs, so the next pair is growing while the current one fights.
+The nursery raises Rookies through short, played-time care, **one mon at a time**: egg → In-Training → Rookie in about 11 minutes of played time. Care decides **which Rookie** you get and **how strong it starts** a run. Finished Rookies go to your **Rookie roster**, so you build up an army of Rookies while you play runs, then pick two from the roster for each run.
 
 It is not a vpet. Nothing happens while the game is closed.
 
 ## Rules
 
-### Slots
+### Slot and roster
 
-- **Two slots.** Each holds one mon from egg to Rookie.
-- **No queue.** A slot holds one mon until that Rookie is taken on a run or discarded.
-- **Ready Rookies need no care.** Once a mon reaches Rookie it waits in its slot, frozen.
-- An empty slot can be filled with a **basic egg** (always free) or a **DNA egg** (from recycling, later).
+- **One nursery slot.** One mon at a time, from egg to Rookie.
+- **A finished Rookie moves to the roster** and the slot frees up for the next egg.
+- **Roster Rookies need no care.** They wait until you take them on a run.
+- **Starting a run:** pick any two Rookies from the roster (or default starters).
+- An empty slot takes an egg from any **unlocked egg group** (free), or a **DNA egg** (from recycling, later).
+
+### Egg groups
+
+- Each egg group hatches an In-Training mon that can become **one of ~3 Rookies**, decided by care.
+- **Groups overlap.** Two groups can share a Rookie, the way Digimon lines web together. Example: the first group gives 3 possible Rookies; unlocking a second group brings the total to 5.
+- **Ideally one Rookie per deck archetype.** Over time, the egg groups cover every Rookie archetype.
+- **You start with one egg group.** More unlock through:
+  - **Run progress:** clearing areas or beating specific bosses.
+  - **DNA recycling:** retiring mons can unlock a group early (e.g. ending a run early and retiring a Champion).
+- Unlock conditions are data, using the same requirement vocabulary as evolution.
 
 ### Played-time clock
 
@@ -27,43 +38,36 @@ It is not a vpet. Nothing happens while the game is closed.
 
 | Stage | Duration (played) | Next |
 |---|---|---|
-| Egg | ~1 min (hatch) | Baby |
-| Baby | ~10 min | Child |
-| Child | ~60 min | Rookie |
-| Rookie | — (ready, frozen) | taken on a run |
+| Egg | ~1 min (hatch) | In-Training |
+| In-Training | ~10 min | Rookie (one of the group's outcomes) |
+| Rookie | — (ready) | moves to the roster |
 
-Durations come from the mon's data so lines can differ.
+No Baby I (Fresh) stage: eggs hatch straight into In-Training. Durations come from the mon's data so groups can differ.
 
 ### Needs
 
 **Hunger**
 
-- Hearts drain toward a **fixed schedule** of hunger windows (Baby: every ~5 min, Child: every ~15 min) (tune).
-- When hearts hit empty, a **grace window** opens (~5 min played) (tune). Feeding in the grace window is fine. If it closes unfed, that's a **care mistake**.
-- Feeding doesn't shift the schedule. Hearts are a view of the schedule, so the UI can show "hungry in 3:20".
-- Feeding when no window is open is **overfeeding**: it adds weight.
+- Hearts drain toward a **fixed schedule** of hunger windows, about every 2.5 min played (~4 per raise) (tune).
+- When hearts hit empty, a **grace window** opens (~2 min played) (tune). Feeding in the grace window is fine. If it closes unfed, that's a **care mistake**.
+- Feeding doesn't shift the schedule. Hearts are a view of the schedule, so the UI can show "hungry in 1:20".
+- Overfeeding adds weight. At max weight the mon gets sick.
 
-**Strength** (Child only)
+**Strength**
 
-- One strength check per ~30 min played (tune), on a hunger window.
+- **One strength check per raise**, on the middle hunger window (tune).
 - Filled by **training** (a short minigame; a button press is fine for the prototype) or **protein** (instant, adds weight).
 - Unfilled at the check = care mistake.
-- Every 4 trainings = 1 **effort** point, capped at 4 like the Pendulum's effort hearts (tune). Effort feeds Rookie quality.
-- Trainings have a short played-time cooldown (~20 s) so button-mashing doesn't max effort (tune).
+- Every 4 trainings = 1 **effort** point (tune). Effort feeds which Rookie you get and its quality.
 
-**Weight**
+**Poop and sickness**
 
-- Overfeeding and protein add weight; training removes it, but never below the species' base weight.
-- Weight has **no effect in the nursery**. It's capped at 99 and carried on the Rookie. (Later: reaching 100 causes sickness in runs, as on the DMX/Pendulum.)
+- Each egg group has a fixed **poop count per gap** between hunger windows (2–4), spread evenly. One jumbo per gap at most (tune).
+- **8 poop points = sick** (normal 1, jumbo 2). The cap is one constant.
+- Designed so you can't get sick unless you missed a window.
+- Sickness must be treated (medicine) before the next window closes, or it's a care mistake. Missing a second window while sick = **death**.
 
-**Poop**
-
-- Each line has a fixed **poop count per gap** between hunger windows, spread evenly. One jumbo per gap at most (tune).
-- Poop is removed with the **Clean** menu action.
-- **8 poop points = one care mistake** (normal 1, jumbo 2). The cap is one constant. It can't cost another mistake until you clean.
-- Designed so you can't hit the cap if you clean once per gap: the validator rejects any line whose per-gap points reach the cap.
-
-**No sickness, no death.** Neglect only changes the outcome (fewer mistakes → better Rookie; lots of mistakes → a Numemon). No sleep need either. The raise is too short for it.
+No sleep need. The raise is too short for it.
 
 ### Battle grace rule
 
@@ -71,22 +75,25 @@ Care is done **between** run nodes, never during a fight. If a grace window woul
 
 ### Care mistakes and outcomes
 
-- Care mistakes are: a hunger window closing unfed, a strength check closing unfilled, poop reaching the cap.
-- Mistakes are counted per stage (Baby and Child separately). A window that closes after a stage ends counts against the new stage.
-- **Evolution:** at each stage end, the mon's evolution list is checked in order. The first branch whose requirements are met wins.
-  - Requirements are data, from a fixed vocabulary, e.g. `{"careMistakes": "<=1", "effort": ">=3"}`.
-  - The last branch has no requirements (fallback).
+- Mistakes are counted over the raise.
+- **Death:** reaching a mistake threshold (tune, e.g. ~60% of the raise's failure points: 4 hunger + 1 strength = 5, so death at 3), or untreated sickness. The slot empties; the player can start a new egg from any unlocked group. Death costs time, not eggs.
+- **Evolution:** when In-Training ends, its evolution list is checked in order. The first branch whose requirements are met wins.
+  - Requirements are data, from a fixed vocabulary.
+  - Example for a group with three outcomes:
+    - `{"careMistakes": "<=0", "effort": ">=2"}` → Rookie A
+    - `{"careMistakes": "<=1"}` → Rookie B
+    - `{}` → Rookie C (fallback)
 
 ### Rookie output
 
-A Rookie that leaves the nursery carries:
+A Rookie that enters the roster carries:
 
 - **Species** (which Rookie: decided by care)
-- **Quality** tier from mistakes (Baby + Child) and effort: Perfect = 0 mistakes and effort ≥ 3; Good = ≤ 2 mistakes; Rough = the rest (tune)
-- **Starting bonus** by quality: Perfect = +1 bonus card from its pool and +5 max HP to the shared pool; Good = +2 max HP; Rough = none (tune)
+- **Quality** tier from mistakes and effort, e.g. Perfect / Good / Rough (tune)
+- **Starting bonus** by quality: e.g. Perfect = +1 bonus card from its pool and a small max-HP bonus to the shared pool; Rough = none (tune)
 - **Inherited cards** from its egg (DNA eggs only, within the inherit budget)
 
-**Default starters** have no quality bonus and no inherited cards. That's the whole reason to raise mons.
+**Default starters** have no quality bonus and no inherited cards. They exist so a brand-new player, or one with an empty roster, can always start a run.
 
 ## Architecture (Godot 4.7, GDScript)
 
@@ -95,7 +102,7 @@ A Rookie that leaves the nursery carries:
 - **Logic is plain classes** (`RefCounted`), with no `Node` or scene dependencies. Scenes only display state and send actions.
 - **No `Time.get_*` or OS time in logic.** Time comes in as played seconds from the clock.
 - **No global randomness in logic.** Use a seeded `RandomNumberGenerator` stored in state. (Poop timing is deterministic anyway.)
-- **All numbers in data.** Species and tuning live in Resources (`.tres`) or JSON, never in logic code.
+- **All numbers in data.** Species, egg groups and tuning live in Resources (`.tres`) or JSON, never in logic code.
 - **The logic is the same code runs will call.** A run's nursery check between nodes calls the same functions.
 
 ### Layout
@@ -104,26 +111,26 @@ A Rookie that leaves the nursery carries:
 res://
   core/
     nursery/
-      nursery_state.gd      # slots, serializable to/from Dictionary
+      nursery_state.gd      # the slot, the roster, unlocked egg groups; serializable to/from Dictionary
       slot_state.gd         # one mon: stage, age, hearts schedule, poop, sickness, mistakes, effort
-      nursery_logic.gd      # advance(state, catalog, played_seconds) -> events; actions: feed, protein, train, clean
-      care_schedule.gd      # computes hunger windows, strength checks, poop times for a stage
+      nursery_logic.gd      # advance(state, played_seconds) -> events; actions: start_egg, feed, protein, train, clean, medicine
+      care_schedule.gd      # computes hunger windows, strength check, poop times for a raise
       evolution.gd          # evaluates requirement dicts against counters (shared with runs later)
-      rookie.gd             # output record handed to runs
-    tuning.gd               # constants: poop cap, grace length, effort cap, quality thresholds
+      unlocks.gd            # evaluates egg group unlock conditions (same requirement vocabulary)
+      rookie.gd             # roster entry handed to runs
+    tuning.gd               # constants: poop cap, grace length, quality thresholds
   data/
-    catalog.tres            # CatalogDef: lists every species and egg, names the basic egg
     species/*.tres          # SpeciesDef: id, name, stage, attribute, stage duration,
-                            #   hunger interval, poop per gap, strength_every, base weight,
-                            #   evolutions[{to, reqs}], card pool, colour/sprite
-    eggs/*.tres             # EggDef: id, baby species, hatch time, inherit budget
+                            #   hunger interval, poop per gap, evolutions[{to, reqs}], card pool, sprite
+    egg_groups/*.tres       # EggGroupDef: id, in_training species, unlock reqs, inherit budget
   autoload/
     play_clock.gd           # emits tick(played_delta); time scale; pauses with the game
     game_state.gd           # owns NurseryState, saves/loads
-    save_system.gd          # user://save.json, version field, migrations (plain class, not an autoload)
+    save_system.gd          # user://save.json, version field, migrations
   scenes/
-    nursery/                # nursery screen, slot view, care buttons
-    debug/                  # time scale, add egg, force stage, show schedule
+    nursery/                # nursery screen, slot view, care buttons, egg picker
+    roster/                 # Rookie roster, pick two for a run
+    debug/                  # time scale, unlock group, force stage, show schedule
   tests/                    # GUT or gdUnit4, headless
 ```
 
@@ -131,8 +138,8 @@ res://
 
 1. `PlayClock` emits `tick(played_delta)` every frame while not paused (scaled by debug time scale).
 2. `GameState` calls `NurseryLogic.advance(nursery_state, played_delta)`.
-3. `advance` walks events in time order: grace closes (hunger + strength check), poop, stage end → evolution, hearts empty. It returns a list of events for the UI (`hatched`, `hungry`, `pooped`, `mistake`, `evolved`, `ready`).
-4. Player actions (`feed`, `protein`, `train`, `clean`, …) are functions that update the state in place and return events.
+3. `advance` walks events in time order: hearts empty, grace closes, strength check, poop, sickness deadline, stage end → evolution → roster. It returns a list of events for the UI (`hatched`, `hungry`, `pooped`, `sick`, `evolved`, `to_roster`, `died`, `mistake`).
+4. Player actions (`start_egg`, `feed`, `train`, `clean`, …) are functions that take state and return new state plus events.
 5. `GameState` autosaves on events and on a timer.
 
 Because `advance` handles any `played_delta` in event order, a big jump (debug ×60, or a long frame) behaves the same as many small ones. That's the property tests check.
@@ -144,41 +151,42 @@ Runs tell the nursery when a battle starts and ends (`NurseryLogic.set_in_battle
 ### Saves
 
 - `user://save.json` with `"version"`. Every change to the save shape adds a migration function. Never break an old save.
-- Nursery state serializes to a Dictionary of plain values (no object references).
+- Nursery state (slot, roster, unlocks) serializes to a Dictionary of plain values (no object references).
 
 ## Tests
 
-- Normal raise with perfect care → expected Rookie, quality Perfect.
-- One missed feed → one mistake, still evolves.
-- No care at all → still reaches Rookie, poor branch, quality Rough.
-- Poop: cleaning every gap never reaches the cap; one missed clean on a 4+ poop line → one mistake.
-- Strength: no training → a mistake per check; one training per check → none.
+- Normal raise with perfect care → Rookie A, quality Perfect, lands in the roster, slot empties.
+- One missed feed → one mistake, still evolves (Rookie B).
+- Poor care → fallback Rookie C.
+- Missed windows past the death threshold → death, slot empties, roster unchanged.
+- Poop: no misses never reaches the sickness cap; one miss on a 4-poop group → sick.
+- Sickness untreated through two windows → death; medicine in time → recovers.
 - Battle grace: a deadline inside a battle is extended; same deadline outside a battle is not.
-- **Chunk invariance:** advancing 3600 s in one call equals 3600 calls of 1 s.
+- Egg picker only offers unlocked groups; an unlock condition being met unlocks its group.
+- **Chunk invariance:** advancing 660 s in one call equals 660 calls of 1 s.
 - Save round-trip: serialize → deserialize → identical state.
 - Evolution: first matching branch wins; fallback always matches.
 
 ## Debug tools
 
 - Time scale ×1 / ×10 / ×60
-- Add egg to slot, force next stage, clear slot, toggle "in battle"
+- Unlock egg group, force next stage, force sick, add Rookie to roster
 - Overlay showing upcoming hunger windows, poop times, deadlines and mistake count
 - Hide debug UI in release builds
 
 ## Prototype content
 
-- **One egg line, two Rookie outcomes** (good care / poor care), placeholder art (colored shapes).
-- A second line if time allows, so both slots can raise different mons.
+- **Greybox with the Pendulum Virus Busters roster** for branching flow: one egg group (its In-Training form and three Rookie outcomes from that roster's chart), placeholder art (colored shapes).
+- A second, overlapping egg group if time allows, to test unlocks and shared Rookies.
 
 ## Out of scope for this weekend
 
-Runs, battles, cards, Extensions, retirement, DNA recycling and DNA eggs. Stub the `Rookie` record and a "Send to run" button that just logs it.
+Runs, battles, cards, Extensions, retirement, DNA recycling and DNA eggs. Stub the `Rookie` record and a "Send to run" button that picks two roster Rookies and just logs them.
 
 ## Open questions
 
-- Stage durations: is ~70 min to Rookie right?
-- Baby gets only one hunger window in 10 min at a 5 min interval (the second lands on the evolution). Shorten the Baby interval?
-- Should the strength check and poop cap count as full care mistakes, or be separate counters evolutions can read?
-- Discarding a mon in a slot: allowed? Does it give anything?
-- What do quality tiers give exactly?
+- Is ~11 min per Rookie right?
+- Roster cap? Can roster Rookies be released or recycled directly?
+- Exactly what unlocks each egg group (which bosses/areas, which retirements)?
 - Should the nursery be reachable mid-run only at rest nodes, or between every node?
+- What do quality tiers give exactly?
